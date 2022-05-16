@@ -15,8 +15,16 @@ app.use(
     useTempFiles: true,
   })
 );
-// link root user
+// link user root
 const user = require('./Routes/userRouter.js');
 app.use('/user/',user);
+
+// link traffic sign root 
+const trafficSign = require('./Routes/trafficSignRouter');
+app.use('/trafficSign',trafficSign);
+
+// link category traffic sign root 
+const categorySign = require('./Routes/categorySignRouter');
+app.use('/categorySign',categorySign);
 
 module.exports = app;
