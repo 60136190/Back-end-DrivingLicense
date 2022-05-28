@@ -119,6 +119,7 @@ const UserCtrl = {
                 status: 200,
                 // accessToken,
                 msg: "Login is successfully",
+                id: user.id
             });
         } catch (error) {
             return res.json({
