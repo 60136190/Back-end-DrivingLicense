@@ -1,13 +1,13 @@
 
-- This is Driving License Application
-# Driving License for admin
+# Api For Driving License App
+* Admin
 Traffic sign:
 - Add traffic sign: POST --> https://driving-license-thainam.herokuapp.com/trafficSign/add
 
 Category of traffic sign:
 - Add category of traffic sign: POST --> https://driving-license-thainam.herokuapp.com/categorySign/add
 
-# Driving License for customer
+* Customer
 Traffic sign:
 - Get all traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getAll
 - Get detail traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getDetail/{id}
