@@ -1,13 +1,13 @@
 
 # Api For Driving License App
-* Admin
+Admin
 Traffic sign:
 - Add traffic sign: POST --> https://driving-license-thainam.herokuapp.com/trafficSign/add
 
 Category of traffic sign:
 - Add category of traffic sign: POST --> https://driving-license-thainam.herokuapp.com/categorySign/add
 
-* Customer
+Customer
 Traffic sign:
 - Get all traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getAll
 - Get detail traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getDetail/{id}
