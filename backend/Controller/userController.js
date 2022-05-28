@@ -26,7 +26,7 @@ const UserCtrl = {
                     msg: 'Your password is not enough 8 characters'
                 });
 
-                 //kiểm tra format password
+    //kiểm tra format password
       let reg = new RegExp(
         "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
       ).test(password);
@@ -150,7 +150,7 @@ const UserCtrl = {
 
 
 
-    // get single user
+    // get proflie
     async GetProfile(req, res) {
         try {
             const id = req.params.id;
@@ -196,6 +196,7 @@ const UserCtrl = {
         }
     },
 
+
     // delete user
     async DeleteUser(req, res) {
         try {
@@ -216,10 +217,10 @@ const UserCtrl = {
     },
 
     // change password
-    async ChangePassword(req, res) {
+    async changePassword(req, res) {
         try {
             const user = req.params.id;
-            const oldPass = await Users.findById(user).select('password');
+            const oldPass = await Users.findById(user).select('+password');
             const { password, newpassword, confirmpassword } = req.body;
 
             if (!password)
@@ -239,7 +240,24 @@ const UserCtrl = {
                     status: 400,
                     msg: "Confirm password is empty",
                 });
-
+                
+                if (newpassword.length < 6)
+                return res.json({
+                  status: 400,
+                  success: false,
+                  msg: "Password is at least 6 characters long.",
+                });
+        
+              let reg = new RegExp(
+                "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
+              ).test(newpassword);
+              if (!reg) {
+                return res.json({
+                  status: 400,
+                  success: false,
+                  msg: "Includes 6 characters, uppercase, lowercase and some and special characters.",
+                });
+              }
 
             if (newpassword !== confirmpassword)
                 return res.json({
@@ -247,17 +265,21 @@ const UserCtrl = {
                     msg: "New password and confirm are not match",
                 });
 
-            if (password !== oldPass.password) {
-                return res.json({
-                    status: 400,
-                    msg: "Old password is not correct",
-                });
-            }
-            await Users.findByIdAndUpdate(
-                { _id: user },
-                { password: newpassword },
-
-            );
+           
+            const isMatch = await bcrypt.compare(password, oldPass.password);
+      if (!isMatch)
+        return res.json({
+          status: 400,
+          success: false,
+          msg: "Old Password Incorrect",
+        });
+        
+        const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(newpassword, salt);
+       await Users.findByIdAndUpdate(
+        { _id: user },
+        { password: passwordHash},
+      );
             return res.json({
                 status: 200,
                 msg: "Change password is successfully",

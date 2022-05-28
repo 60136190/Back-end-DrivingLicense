@@ -18,11 +18,13 @@ router.get('/getProfile/:id',UserCtrl.GetProfile);
 //Update profile
 router.patch('/updateUser/:id',UserCtrl.UpdateUser);
 
+//Change password user
+router.patch('/changePassword/:id',UserCtrl.changePassword);
+
 //Delete user
 router.delete('/deleteUser/:id',UserCtrl.DeleteUser);
 
-//Change password user
-router.patch('/changePassword/:id',UserCtrl.ChangePassword);
+
 
 module.exports = router;
 
