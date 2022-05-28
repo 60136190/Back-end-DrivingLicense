@@ -63,6 +63,25 @@ const TrafficSignCtrl = {
         }
     },
 
+     // get detail traffic sign
+     async getDetailTrafficSign(req, res) {
+        try {
+            const id = req.params.id;
+            const data = await TrafficSign.find({ _id: id });
+
+            return res.json({
+                status: 200,
+                msg: "Get detail traffic sign is successfully",
+                data,
+            });
+        } catch (error) {
+            return res.json({
+                status: 400,
+                msg: "Get detail traffic sign failed ",
+            });
+        }
+    },
+
     // get traffic sign follow id category
     async getTrafficSignFollowIdCategory(req, res){
         try {

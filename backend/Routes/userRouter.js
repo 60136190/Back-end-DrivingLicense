@@ -12,10 +12,10 @@ router.post('/login',UserCtrl.Login);
 //Get all user
 router.get('/getAll',UserCtrl.GetAllUser);
 
-//Get single user
-router.get('/getSingleUser/:id',UserCtrl.GetSingleUser);
+//Get profile
+router.get('/getProfile/:id',UserCtrl.GetProfile);
 
-//Update user
+//Update profile
 router.patch('/updateUser/:id',UserCtrl.UpdateUser);
 
 //Delete user

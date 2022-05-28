@@ -11,7 +11,7 @@ const UserCtrl = {
     async Register(req, res) {
         try {
             // crate variable email and password
-            const { email, password } = req.body;
+            const { fullName, phoneNumber, address, email, password } = req.body;
             const user = await Users.findOne({ email });
 
             if (user)
@@ -41,6 +41,9 @@ const UserCtrl = {
             // Password Ecryption
             const passwordHash = await bcrypt.hash(password, 10)
             const newUser = new Users({
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                address: address,
                 email: email,
                 password: passwordHash,
             });
@@ -145,61 +148,50 @@ const UserCtrl = {
         }
     },
 
+
+
     // get single user
-    async GetSingleUser(req, res) {
+    async GetProfile(req, res) {
         try {
             const id = req.params.id;
             const data = await Users.find({ _id: id });
 
             return res.json({
                 status: 200,
-                msg: "Get single user is successfully",
+                msg: "Get profile is successfully",
                 data,
             });
         } catch (error) {
             return res.json({
                 status: 400,
-                msg: "Get single user failed ",
+                msg: "Get profile failed ",
             });
         }
     },
 
-    // update user
+    // update profile
     async UpdateUser(req, res) {
         try {
             //get id
             const id = req.params.id;
-            const { email, password, image } = req.body;
-
-            if (!email)
-                return res.json({
-                    status: 400,
-                    msg: "Please input email"
-                });
-            if (!password)
-                return res.json({
-                    status: 400,
-                    msg: "Please input password"
-                });
-            if (!image)
-                return res.json({
-                    status: 400,
-                    msg: "Please input image"
-                });
+            const { fullName, phoneNumber, address, email } = req.body;
 
             await Users.findByIdAndUpdate(
                 { _id: id },
-                { email: email, password: password, image: image });
+                { fullName: fullName, 
+                    phoneNumber: phoneNumber,
+                    address: address,
+                    email: email });
 
             return res.json({
                 status: 200,
-                msg: "Update user succesfully",
+                msg: "Update profile succesfully",
             });
 
         } catch (error) {
             return res.json({
                 status: 400,
-                msg: "Update user failed",
+                msg: "Update profile failed",
             });
         }
     },
