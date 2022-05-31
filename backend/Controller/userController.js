@@ -65,12 +65,14 @@ const UserCtrl = {
                 status: 200,
                 // accesstoken : accesstoken,   
                 msg: 'Register successfully',
+                id: newUser.id,
             });
 
         } catch (error) {
             return res.json({
                 status: 400,
                 msg: 'Register failed',
+                
             });
         }
     },
