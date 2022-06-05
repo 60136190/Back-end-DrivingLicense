@@ -16,6 +16,14 @@ Traffic sign:
 Category of traffic sign:
 - Gett all category: GET --> https://driving-license-thainam.herokuapp.com/categorySign/getAll
 
+Learn:
+- Gett all learn: GET --> https://driving-license-thainam.herokuapp.com/learn/getAll
+- Get detail learn: GET --> https://driving-license-thainam.herokuapp.com/learn/getDetail/{id}
+- Get all learn follow id category: GET --> https://driving-license-thainam.herokuapp.com/learn/getLearnFollowIdCategory/{id}
+
+Category of learn:
+- Get all category: GET --> https://driving-license-thainam.herokuapp.com/categoryLearn/getAll
+
 Auth:
 - Register: POST --> https://driving-license-thainam.herokuapp.com/user/register
 - Login: POST --> https://driving-license-thainam.herokuapp.com/user/login
