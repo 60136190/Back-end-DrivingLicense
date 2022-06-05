@@ -1,8 +1,8 @@
-const CategorySign = require('../Model/categorySignModel');
+const CategoryLearn = require('../Model/categoryLearnModel');
 
-const CategorySignCtrl = {
-    // create new category traffic sign
-    async createCategorySign(req, res){
+const CategoryLearnCtrl = {
+    // create new category learn
+    async createCategoryLearn(req, res){
         try {
             const{name,image} = req.body;
             if(!image){
@@ -13,47 +13,47 @@ const CategorySignCtrl = {
                 });
             }
 
-            const newCategorySign = new CategorySign({
+            const newCategoryLearn = new CategoryLearn({
                 name,
                 image,
             });
 
             // save in mongodb
-            await newCategorySign.save();
+            await newCategoryLearn.save();
 
             return res.status(200).json({
                 status:200,
                 success: true,
-                msg: "Created new category traffic sign successfully",
+                msg: "Created new category learn successfully",
             });
         } catch (error) {
             return res.status(400).json({
                 status:400,
                 success: false,
-                msg: "Failed create new category traffic sign",
+                msg: "Failed create new category learn",
             });
         }
     },
 
-    // get all traffic sign
-    async getAllCategoryTrafficSign(req, res){
+    // get all category learn
+    async getAllCategoryLearn(req, res){
         try {
-            const all_category = await CategorySign.find({});
+            const all_category = await CategoryLearn.find({});
             return res.json({
                 status: 200,
                 success: true,
-                msg: "Get all category traffic sign is successfully",
+                msg: "Get all category learn is successfully",
                 data: all_category,
             });
         } catch (error) {
             return res.status(400).json({
                 status: 400,
                 success: false,
-                msg: "Failed to get all category traffic sign",
+                msg: "Failed to get all category learn",
             });
         }
     },
 };
 
-module.exports = CategorySignCtrl;
+module.exports = CategoryLearnCtrl;
 

@@ -27,4 +27,12 @@ app.use('/trafficSign',trafficSign);
 const categorySign = require('./Routes/categorySignRouter');
 app.use('/categorySign',categorySign);
 
+// link learn
+const learn = require('./Routes/learnRouter');
+app.use('/learn',learn);
+
+// link category learn
+const categoryLearn = require('./Routes/categoryLearnRouter');
+app.use('/categoryLearn',categoryLearn);
+
 module.exports = app;
