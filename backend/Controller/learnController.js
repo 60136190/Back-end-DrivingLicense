@@ -45,11 +45,14 @@ const LearnCtrl = {
     async getAllLearn(req, res){
         try {
             const data = await Learn.find({});
+        
             return res.status(200).json({
                 status: 200,
                 success: true,
                 msg: "Get all learn is successfully",
+                count: data.length,
                 data,
+            
             });
         } catch (error) {
             return res.status(400).json({
