@@ -7,6 +7,9 @@ Traffic sign:
 Category of traffic sign:
 - Add category of traffic sign: POST --> https://driving-license-thainam.herokuapp.com/categorySign/add
 
+Learn
+- Update learn: PATCH --> https://driving-license-thainam.herokuapp.com/learn/updateLearn/{id_learn}
+
 # Customer
 Traffic sign:
 - Get all traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getAll
