@@ -14,4 +14,7 @@ router.get('/getDetail/:id',LearnCtrl.getDetailLearn);
 // get learn follow id category
 router.get('/getLearnFollowIdCategory/:id', LearnCtrl.getLearnFollowIdCategory);
 
+//Update learn
+router.patch('/updateLearn/:id',LearnCtrl.UpdateLearn);
+
 module.exports = router;

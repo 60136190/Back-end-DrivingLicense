@@ -63,7 +63,7 @@ const LearnCtrl = {
         }
     },
 
-     // get detail traffic sign
+     // get detail learn
      async getDetailLearn(req, res) {
         try {
             const id = req.params.id;
@@ -96,6 +96,7 @@ const LearnCtrl = {
       return res.status(200).json({
         status: 200,
         success: true,
+        count : data.length,
         data,
         msg: "Get learn by category successfully",
       });
@@ -108,7 +109,34 @@ const LearnCtrl = {
               });
 
         }
-    }
+    },
+
+    // update learn
+    async UpdateLearn(req, res) {
+        try {
+            //get id
+            const id = req.params.id;
+            const { image, question, category, answer } = req.body;
+
+            await Learn.findByIdAndUpdate(
+                { _id: id },
+                { image: image, 
+                    question: question,
+                    category: category,
+                    answer: answer });
+
+            return res.json({
+                status: 200,
+                msg: "Update learn succesfully",
+            });
+
+        } catch (error) {
+            return res.json({
+                status: 400,
+                msg: "Update learn failed",
+            });
+        }
+    },
 };
 
 module.exports = LearnCtrl;
