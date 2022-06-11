@@ -35,4 +35,8 @@ app.use('/learn',learn);
 const categoryLearn = require('./Routes/categoryLearnRouter');
 app.use('/categoryLearn',categoryLearn);
 
+// link trick
+const trick = require('./Routes/trickRouter');
+app.use('/trick',trick);
+
 module.exports = app;
