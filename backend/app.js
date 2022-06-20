@@ -39,4 +39,16 @@ app.use('/categoryLearn',categoryLearn);
 const trick = require('./Routes/trickRouter');
 app.use('/trick',trick);
 
+// link category law
+const categoryLawCar = require('./Routes/categoryLawCarRouter');
+app.use('/categoryLawCar',categoryLawCar);
+
+// link law
+const law = require('./Routes/lawRouter');
+app.use('/law',law);
+
+// link history test
+const history = require('./Routes/historyTestRouter');
+app.use('/history',history);
+
 module.exports = app;

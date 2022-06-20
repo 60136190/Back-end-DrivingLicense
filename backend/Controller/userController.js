@@ -199,7 +199,7 @@ const UserCtrl = {
         }
     },
 
-
+    
     // delete user
     async DeleteUser(req, res) {
         try {
