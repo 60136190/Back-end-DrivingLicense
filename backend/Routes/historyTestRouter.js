@@ -6,6 +6,6 @@ const HistoryTestCtrl = require('../Controller/historyTestController');
 router.post('/add',HistoryTestCtrl.createHistory);
 
 // create new category traffic sign
-router.post('/getAll',HistoryTestCtrl.getAllHistory);
+router.get('/getAll',HistoryTestCtrl.getAllHistory);
 
 module.exports = router;
