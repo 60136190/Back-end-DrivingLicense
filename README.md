@@ -10,6 +10,9 @@ Category of traffic sign:
 Learn
 - Update learn: PATCH --> https://driving-license-thainam.herokuapp.com/learn/updateLearn/{id_learn}
 
+Trick
+- Create trick: POST --> https://driving-license-thainam.herokuapp.com/trick/add
+
 # Customer
 Traffic sign:
 - Get all traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getAll
@@ -26,6 +29,10 @@ Learn:
 
 Category of learn:
 - Get all category: GET --> https://driving-license-thainam.herokuapp.com/categoryLearn/getAll
+
+Trick:
+- Get all trick: GET --> https://driving-license-thainam.herokuapp.com/trick/getAll
+- Get detail trick: GET --> https://driving-license-thainam.herokuapp.com/trick/getDetail/{id}
 
 Auth:
 - Register: POST --> https://driving-license-thainam.herokuapp.com/user/register
