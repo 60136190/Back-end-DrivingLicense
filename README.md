@@ -13,6 +13,9 @@ Learn
 Trick
 - Create trick: POST --> https://driving-license-thainam.herokuapp.com/trick/add
 
+History test
+- Create history test: POST --> https://driving-license-thainam.herokuapp.com/history/add
+
 # Customer
 Traffic sign:
 - Get all traffic sign: GET --> https://driving-license-thainam.herokuapp.com/trafficSign/getAll
@@ -40,4 +43,7 @@ Auth:
 - Get profile: GET --> https://driving-license-thainam.herokuapp.com/user/getProfile/{id}
 - Update profile: PATCH --> https://driving-license-thainam.herokuapp.com/user/updateUser/{id}
 - Change password: PATCH --> https://driving-license-thainam.herokuapp.com/user/changePassword/{id}
+
+History test
+- Get all history list: GET --> https://driving-license-thainam.herokuapp.com/history/getAll
 
