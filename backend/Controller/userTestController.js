@@ -87,7 +87,7 @@ const UserTestCtrl = {
     async LoginTest(req, res) {
         try {
             const { email, password } = req.body;
-            const user = await Users.findOne({ email: email });
+            const user = await UserTests.findOne({ email: email });
 
             if (!email)
                 return res.json({
