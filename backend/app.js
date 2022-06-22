@@ -19,6 +19,11 @@ app.use(
 const user = require('./Routes/userRouter.js');
 app.use('/user/',user);
 
+// link user test root
+const userTest = require('./Routes/userRouterTest');
+app.use('/userTest/',userTest);
+
+
 // link traffic sign root 
 const trafficSign = require('./Routes/trafficSignRouter');
 app.use('/trafficSign',trafficSign);

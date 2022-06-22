@@ -23,6 +23,10 @@ const LearnSchema = new mongoose.Schema({
             title:{
                 type: String,
                 required:true,
+            },
+            idQuestion:{
+                type: String,
+                ref: "learn",
             }
         }
     ]

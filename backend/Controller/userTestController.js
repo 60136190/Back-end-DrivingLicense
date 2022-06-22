@@ -1,19 +1,23 @@
-const Users = require('../Model/userModel.js');
+const UserTests = require('../Model/userTestModel.js');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+var Cryptr = require('cryptr');
+cryptr = new Cryptr('devnami');
 require('dotenv').config();
+var Cryptr = require('cryptr');
+cryptr = new Cryptr('devnami');
 
 
-const UserCtrl = {
+const UserTestCtrl = {
 
     // create new account
-    async Register(req, res) {
+    async RegisterTest(req, res) {
         try {
             // crate variable email and password
             const { fullName, phoneNumber, address, email, password } = req.body;
-            const user = await Users.findOne({ email });
+            const user = await UserTests.findOne({ email });
 
             if (user)
                 return res.json({
@@ -41,8 +45,8 @@ const UserCtrl = {
 
             // Password Ecryption
             const passwordHash = await bcrypt.hash(password, 10)
-            const fullNameHash = await bcrypt.hash(fullName, 10)
-            const newUser = new Users({
+            const fullNameHash = await cryptr.encrypt(fullName)
+            const newUser = new UserTests({
                 fullName: fullNameHash,
                 phoneNumber: phoneNumber,
                 address: address,
@@ -80,7 +84,7 @@ const UserCtrl = {
     },
 
     // login user
-    async Login(req, res) {
+    async LoginTest(req, res) {
         try {
             const { email, password } = req.body;
             const user = await Users.findOne({ email: email });
@@ -136,10 +140,10 @@ const UserCtrl = {
 
 
     // get all user
-    async GetAllUser(req, res) {
+    async GetAllUserTest(req, res) {
         try {
             // find all user
-            const all_user = await Users.find({});
+            const all_user = await UserTests.find({});
             return res.json({
                 status: 200,
                 msg: "Get all user",
@@ -156,24 +160,38 @@ const UserCtrl = {
 
 
     // get proflie
-    async GetProfile(req, res) {
+    async GetProfileTest(req, res) {
         try {
             const id = req.params.id;
         
-            const data = await Users.find({ _id: id });
+            const data = await UserTests.find({ _id: id });
 
             // console.log(data.map((item)=>{
             //     return item.fullName
             // }));
-          
+            const fullname = data.map((item)=>{
+                return item.fullName
+            });
 
+            var decstring = cryptr.decrypt(fullname);
+       
+            // var a=[]
+            // a.push({
+            //     full:decstring
+            // })
+            // var alo=data.concat(a)
+           
             // const fullNameDecode = fullname.bcrypt.unhash();
             // console.log(fullNameDecode)
+
+            // const a = await UserTests.
 
             return res.json({
                 status: 200,
                 msg: "Get profile is successfully",
                 data,
+                fullNameDec: decstring,
+                
             });
         } catch (error) {
             return res.json({
@@ -183,137 +201,10 @@ const UserCtrl = {
         }
     },
 
-    // update profile
-    async UpdateUser(req, res) {
-        try {
-            //get id
-            const id = req.params.id;
-            const { fullName, phoneNumber, address, email } = req.body;
 
-            await Users.findByIdAndUpdate(
-                { _id: id },
-                { fullName: fullName, 
-                    phoneNumber: phoneNumber,
-                    address: address,
-                    email: email });
-
-            return res.json({
-                status: 200,
-                msg: "Update profile succesfully",
-            });
-
-        } catch (error) {
-            return res.json({
-                status: 400,
-                msg: "Update profile failed",
-            });
-        }
-    },
-
-    
-    // delete user
-    async DeleteUser(req, res) {
-        try {
-            const id = req.params.id
-            await Users.findByIdAndDelete({ _id: id });
-
-            return res.json({
-                status: 200,
-                msg: "Delete user successfully"
-            });
-
-        } catch (error) {
-            return res.json({
-                status: 400,
-                msg: "Delete user failed"
-            });
-        }
-    },
-
-    // change password
-    async changePassword(req, res) {
-        try {
-            const user = req.params.id;
-            const oldPass = await Users.findById(user).select('+password');
-            const { password, newpassword, confirmpassword } = req.body;
-
-            if (!password)
-                return res.json({
-                    status: 400,
-                    msg: "Password is empty",
-                });
-
-            if (!newpassword)
-                return res.json({
-                    status: 400,
-                    msg: "New password is empty",
-                });
-
-            if (!confirmpassword)
-                return res.json({
-                    status: 400,
-                    msg: "Confirm password is empty",
-                });
-                
-                if (newpassword.length < 6)
-                return res.json({
-                  status: 400,
-                  success: false,
-                  msg: "Password is at least 6 characters long.",
-                });
-        
-              let reg = new RegExp(
-                "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
-              ).test(newpassword);
-              if (!reg) {
-                return res.json({
-                  status: 400,
-                  success: false,
-                  msg: "Includes 6 characters, uppercase, lowercase and some and special characters.",
-                });
-              }
-
-            if (newpassword !== confirmpassword)
-                return res.json({
-                    status: 400,
-                    msg: "New password and confirm are not match",
-                });
-
-           
-            const isMatch = await bcrypt.compare(password, oldPass.password);
-      if (!isMatch)
-        return res.json({
-          status: 400,
-          success: false,
-          msg: "Old Password Incorrect",
-        });
-        
-        const salt = await bcrypt.genSalt(10);
-      const passwordHash = await bcrypt.hash(newpassword, salt);
-       await Users.findByIdAndUpdate(
-        { _id: user },
-        { password: passwordHash},
-      );
-            return res.json({
-                status: 200,
-                msg: "Change password is successfully",
-            });
-        } catch (error) {
-            return res.json({
-                status: 400,
-                msg: "Change password failed",
-            });
-        }
-    },
+   
 };
 
 
 
-const createAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
-  };
-  const createRefreshToken = (user) => {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
-  };
-
-module.exports = UserCtrl;
+module.exports = UserTestCtrl;
