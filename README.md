@@ -47,3 +47,9 @@ Auth:
 History test
 - Get all history list: GET --> https://driving-license-thainam.herokuapp.com/history/getAll
 
+# Hash full name
+- Register: POST --> https://driving-license-thainam.herokuapp.com/userTest/register
+- Login: POST --> https://driving-license-thainam.herokuapp.com/userTest/login
+- Get all user: GET --> https://driving-license-thainam.herokuapp.com/userTest/getAll
+- Get profile user follow id: GET --> https://driving-license-thainam.herokuapp.com/userTest/getProfile/{id}
+
