@@ -41,9 +41,9 @@ const UserCtrl = {
 
             // Password Ecryption
             const passwordHash = await bcrypt.hash(password, 10)
-            const fullNameHash = await bcrypt.hash(fullName, 10)
+    
             const newUser = new Users({
-                fullName: fullNameHash,
+                fullName: fullName,
                 phoneNumber: phoneNumber,
                 address: address,
                 email: email,
